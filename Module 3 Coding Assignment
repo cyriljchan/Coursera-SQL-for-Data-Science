@@ -1,0 +1,87 @@
+Question 1
+All of the questions in this quiz refer to the open source Chinook Database. Please familiarize yourself with the ER diagram in order to familiarize yourself with the table and column names in order to write accurate queries and get the appropriate answers.
+Using a subquery, find the names of all the tracks for the album "Californication".
+
+SELECT a.title AS AlbumTitle
+	,t.name AS TrackName
+FROM albums a
+INNER JOIN tracks t ON a.albumid = t.albumid
+WHERE a.title = "Californication"
+
+
+Question 2
+All of the questions in this quiz refer to the open source Chinook Database. Please familiarize yourself with the ER diagram in order to familiarize yourself with the table and column names in order to write accurate queries and get the appropriate answers.
+Find the total number of invoices for each customer along with the customer's full name, city and email.
+
+SELECT c.firstname
+	,c.lastname
+	,c.city
+	,c.email
+	,count(i.invoiceid)
+FROM customers c
+INNER JOIN invoices i ON c.customerid = i.customerid
+GROUP BY c.customerid
+
+
+Question 3
+All of the questions in this quiz refer to the open source Chinook Database. Please familiarize yourself with the ER diagram in order to familiarize yourself with the table and column names in order to write accurate queries and get the appropriate answers.
+Retrieve the track name, album, artistID, and trackID for all the albums.
+
+SELECT a.artistid ArtistId
+	,a.title AlbumTitle
+	,t.name TrackName
+	,t.trackid TrackId
+FROM albums a
+INNER JOIN tracks t ON a.albumid = t.albumid
+WHERE AlbumTitle = "For Those About To Rock We Salute You"
+ORDER BY t.trackid
+
+
+Question 4
+All of the questions in this quiz refer to the open source Chinook Database. Please familiarize yourself with the ER diagram in order to familiarize yourself with the table and column names in order to write accurate queries and get the appropriate answers.
+Retrieve a list with the managers last name, and the last name of the employees who report to him or her.
+
+SELECT a.lastname EmployeeLast
+	,a.reportsto
+	,b.lastname ManagerLast
+FROM employees a
+INNER JOIN employees b ON a.reportsto = b.employeeid
+WHERE ManagerLast = "Mitchell"
+
+
+Question 5
+All of the questions in this quiz refer to the open source Chinook Database. Please familiarize yourself with the ER diagram in order to familiarize yourself with the table and column names in order to write accurate queries and get the appropriate answers.
+Find the name and ID of the artists who do not have albums. 
+
+SELECT a.name
+	,b.albumid
+FROM artists a
+LEFT JOIN albums b ON a.artistid = b.artistid
+WHERE b.artistid IS NULL
+
+
+Question 6
+All of the questions in this quiz refer to the open source Chinook Database. Please familiarize yourself with the ER diagram in order to familiarize yourself with the table and column names in order to write accurate queries and get the appropriate answers.
+Use a UNION to create a list of all the employee's and customer's first names and last names ordered by the last name in descending order.
+
+SELECT firstname
+	,lastname
+FROM employees
+
+UNION
+
+SELECT firstname
+	,lastname
+FROM customers
+ORDER BY lastname DESC
+
+
+Question 7
+All of the questions in this quiz refer to the open source Chinook Database. Please familiarize yourself with the ER diagram in order to familiarize yourself with the table and column names in order to write accurate queries and get the appropriate answers.
+See if there are any customers who have a different city listed in their billing city versus their customer city.
+
+SELECT c.city
+	,i.billingcity
+FROM customers c
+INNER JOIN invoices i ON c.customerid = i.customerid
+WHERE c.city <> i.billingcity
