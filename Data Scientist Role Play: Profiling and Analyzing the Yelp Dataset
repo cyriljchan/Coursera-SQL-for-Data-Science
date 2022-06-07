@@ -47,27 +47,49 @@ FROM TABLE_NAME
 
 5. List the cities with the most reviews in descending order:
 
-
+SELECT city, review_count
+FROM business
+ORDER BY review_count DESC
+	
 
 6. Find the distribution of star ratings to the business in the following cities:
 
 i. Avon
-
+SELECT stars, review_count
+FROM business
+WHERE city = 'Avon'
 
 ii. Beachwood
-
+SELECT stars, review_count
+FROM business
+WHERE city = 'Beachwood'
 
 
 7. Find the top 3 users based on their total number of reviews:		
 
+SELECT name, review_count
+FROM user 
+ORDER BY review_count DESC
+LIMIT 3
 
 
 8. Does posing more reviews correlate with more fans?
 
+SELECT name, review_count, fans
+FROM user 
+ORDER BY review_count DESC
 
 
 9. Are there more reviews with the word "love" or with the word "hate" in them?
 
+SELECT 
+SUM(CASE WHEN text LIKE '%love%' THEN 1 ELSE 0 END) love_count,
+SUM(CASE WHEN text LIKE '%hate%' THEN 1 ELSE 0 END) hate_count
+FROM review
 
 
 10. Find the top 10 users with the most fans:
+SELECT name, fans
+FROM user
+ORDER BY fans DESC
+LIMIT 10
