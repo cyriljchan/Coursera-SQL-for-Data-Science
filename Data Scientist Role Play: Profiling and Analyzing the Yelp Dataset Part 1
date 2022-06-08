@@ -67,8 +67,10 @@ WHERE city = 'Beachwood'
 
 7. Find the top 3 users based on their total number of reviews:		
 
-SELECT name, review_count
+SQL code used to arrive at answer:
+SELECT name, SUM(review_count)
 FROM user 
+GROUP BY name
 ORDER BY review_count DESC
 LIMIT 3
 
@@ -77,7 +79,7 @@ LIMIT 3
 
 SELECT name, review_count, fans
 FROM user 
-ORDER BY review_count DESC
+ORDER BY review_count, fans
 
 
 9. Are there more reviews with the word "love" or with the word "hate" in them?
